@@ -1,18 +1,17 @@
 package br.edu.up.persistencia;
 
-import br.edu.up.entidades.Membro;
+import br.edu.up.entidades.Tarefa;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class MembroDAO {
-
-    //Membro
-    public static boolean adicionarMembro(Membro membro) {
+public class TarefaDAO {
+    public static boolean adicionarTarefa(Tarefa tarefa) {
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
             manager.getTransaction().begin();
-            manager.persist(membro);
+            manager.persist(tarefa);
             manager.getTransaction().commit();
             return true;
         }
@@ -20,18 +19,18 @@ public class MembroDAO {
             return false;
         }
     }
-    public static List<Membro> getMembros(Membro membro){
+    public static List<Tarefa> getTarefas(Tarefa tarefa){
         EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from Membro where nome like :param");
-        consulta.setParameter("param", "%" + membro.getNome() + "%");
-        List<Membro> membros = consulta.getResultList();
-        return membros;
+        Query consulta = manager.createQuery("from Tarefa where nome like :param");
+        consulta.setParameter("param", "%" + tarefa.getNome() + "%");
+        List<Tarefa> tarefas = consulta.getResultList();
+        return tarefas;
     }
-    public static boolean alterarMembro(Membro membro){
+    public static boolean alterarTarefa(Tarefa tarefa){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
             manager.getTransaction().begin();
-            manager.persist(membro);
+            manager.persist(tarefa);
             manager.getTransaction().commit();
             return true;
         }
@@ -39,11 +38,11 @@ public class MembroDAO {
             return false;
         }
     }
-    public static boolean excluirMembro(Membro membro){
+    public static boolean excluirTarefa(Tarefa tarefa){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
             manager.getTransaction().begin();
-            manager.remove(membro);
+            manager.remove(tarefa);
             manager.getTransaction().commit();
             return true;
         }
@@ -52,13 +51,13 @@ public class MembroDAO {
             return false;
         }
     }
-    public static Membro procurarMembro(Membro membro){
+    public static Tarefa procurarTarefa(Tarefa tarefa){
         EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from Membro where nome = :paramNome");
-        consulta.setParameter("paramNome", membro.getNome());
-        List<Membro> membros = consulta.getResultList();
-        if(membros.isEmpty()){
-            return membros.get(0);
+        Query consulta = manager.createQuery("from Tarefa where nome = :paramNome");
+        consulta.setParameter("paramNome", tarefa.getNome());
+        List<Tarefa> tarefas = consulta.getResultList();
+        if(tarefas.isEmpty()){
+            return tarefas.get(0);
         }
         return null;
     }

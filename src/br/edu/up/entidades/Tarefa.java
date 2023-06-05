@@ -12,16 +12,14 @@ public class Tarefa {
     private int id;
     private String nome;
     private String descricao;
-    private Planejamento planejamento;
 
     public Tarefa() {
     }
 
-    public Tarefa(int id, String nome, String descricao, Planejamento planejamento) {
+    public Tarefa(int id, String nome, String descricao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
-        this.planejamento = planejamento;
     }
 
     public int getId() {
@@ -48,11 +46,11 @@ public class Tarefa {
         this.descricao = descricao;
     }
 
-    public Planejamento getPlanejamento() {
-        return planejamento;
-    }
-
-    public void setPlanejamento(Planejamento planejamento) {
-        this.planejamento = planejamento;
+    @Override
+    public String toString() {
+        return "Tarefa" +
+                "Id:" + id +
+                "\nNome: " + nome + '\'' +
+                "\nDescricao: " + descricao;
     }
 }

@@ -1,37 +1,40 @@
 package br.edu.up.persistencia;
 
 import br.edu.up.entidades.Membro;
+import br.edu.up.entidades.Projeto;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class MembroDAO {
+public class ProjetoDAO {
+    public static boolean adicionarProjeto(Projeto projeto) {
+        try{
+            EntityManager manager = EntityManagerFactory.getInstance();
+            manager.getTransaction().begin();
+            manager.persist(projeto);
+            manager.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
 
-    //Membro
-    public static boolean adicionarMembro(Membro membro) {
-        try{
-            EntityManager manager = EntityManagerFactory.getInstance();
-            manager.getTransaction().begin();
-            manager.persist(membro);
-            manager.getTransaction().commit();
-            return true;
-        }
-        catch(Exception e){
-            return false;
-        }
-    }
-    public static List<Membro> getMembros(Membro membro){
+    public static List<Projeto> getProjetos(Projeto projeto){
         EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from Membro where nome like :param");
-        consulta.setParameter("param", "%" + membro.getNome() + "%");
-        List<Membro> membros = consulta.getResultList();
-        return membros;
+        Query consulta = manager.createQuery("from Projeto where nome like :param");
+        consulta.setParameter("param", "%" + projeto.getNome() + "%");
+        List<Projeto> projetos = consulta.getResultList();
+        return projetos;
     }
-    public static boolean alterarMembro(Membro membro){
+
+
+    public static boolean alterarProjeto(Projeto projeto){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
             manager.getTransaction().begin();
-            manager.persist(membro);
+            manager.persist(projeto);
             manager.getTransaction().commit();
             return true;
         }
@@ -39,11 +42,11 @@ public class MembroDAO {
             return false;
         }
     }
-    public static boolean excluirMembro(Membro membro){
+    public static boolean excluirProjeto(Projeto projeto){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
             manager.getTransaction().begin();
-            manager.remove(membro);
+            manager.remove(projeto);
             manager.getTransaction().commit();
             return true;
         }
@@ -52,14 +55,16 @@ public class MembroDAO {
             return false;
         }
     }
-    public static Membro procurarMembro(Membro membro){
+
+    public static Projeto procurarProjeto(Projeto projeto){
         EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from Membro where nome = :paramNome");
-        consulta.setParameter("paramNome", membro.getNome());
-        List<Membro> membros = consulta.getResultList();
-        if(membros.isEmpty()){
-            return membros.get(0);
+        Query consulta = manager.createQuery("from Projeto where nome = :paramNome");
+        consulta.setParameter("paramNome", projeto.getNome());
+        List<Projeto> projetos = consulta.getResultList();
+        if(projetos.isEmpty()){
+            return projetos.get(0);
         }
         return null;
     }
+
 }

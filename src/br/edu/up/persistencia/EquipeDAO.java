@@ -1,18 +1,17 @@
 package br.edu.up.persistencia;
 
-import br.edu.up.entidades.Membro;
+import br.edu.up.entidades.Equipe;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class MembroDAO {
-
-    //Membro
-    public static boolean adicionarMembro(Membro membro) {
+public class EquipeDAO {
+    public static boolean adicionarEquipe(Equipe equipe) {
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
             manager.getTransaction().begin();
-            manager.persist(membro);
+            manager.persist(equipe);
             manager.getTransaction().commit();
             return true;
         }
@@ -20,18 +19,18 @@ public class MembroDAO {
             return false;
         }
     }
-    public static List<Membro> getMembros(Membro membro){
+    public static List<Equipe> getEquipe(Equipe equipe){
         EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from Membro where nome like :param");
-        consulta.setParameter("param", "%" + membro.getNome() + "%");
-        List<Membro> membros = consulta.getResultList();
-        return membros;
+        Query consulta = manager.createQuery("from Equipe where nome like :param");
+        consulta.setParameter("param", "%" + equipe.getNome() + "%");
+        List<Equipe> equipes = consulta.getResultList();
+        return equipes;
     }
-    public static boolean alterarMembro(Membro membro){
+    public static boolean alterarEquipe(Equipe equipe){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
             manager.getTransaction().begin();
-            manager.persist(membro);
+            manager.persist(equipe);
             manager.getTransaction().commit();
             return true;
         }
@@ -39,11 +38,11 @@ public class MembroDAO {
             return false;
         }
     }
-    public static boolean excluirMembro(Membro membro){
+    public static boolean excluirEquipe(Equipe equipe){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
             manager.getTransaction().begin();
-            manager.remove(membro);
+            manager.remove(equipe);
             manager.getTransaction().commit();
             return true;
         }
@@ -52,13 +51,13 @@ public class MembroDAO {
             return false;
         }
     }
-    public static Membro procurarMembro(Membro membro){
+    public static Equipe procurarEquipe(Equipe equipe){
         EntityManager manager = EntityManagerFactory.getInstance();
         Query consulta = manager.createQuery("from Membro where nome = :paramNome");
-        consulta.setParameter("paramNome", membro.getNome());
-        List<Membro> membros = consulta.getResultList();
-        if(membros.isEmpty()){
-            return membros.get(0);
+        consulta.setParameter("paramNome", equipe.getNome());
+        List<Equipe> equipes = consulta.getResultList();
+        if(equipes.isEmpty()){
+            return equipes.get(0);
         }
         return null;
     }

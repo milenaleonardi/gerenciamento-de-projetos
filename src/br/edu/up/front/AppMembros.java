@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AppMembros {
 
-    public void AppMembros() {
+    public AppMembros() {
         Membro membro = null;
         int opc;
         do {
@@ -37,10 +37,10 @@ public class AppMembros {
                     if (!membros.isEmpty()) {
                         System.out.println("----------------------------");
                         for (Membro x : membros) {
-                            membro.setNome("Nome: " + x.getNome());
-                            membro.setCargo("Cargo: " + x.getCargo());
-                            membro.setTelefone("Telefone: " + x.getTelefone());
-                            membro.setEmail("Email: " + x.getEmail());
+                        	System.out.println("Nome: " + x.getNome());
+                        	System.out.println("Cargo: " + x.getCargo());
+                        	System.out.println("Telefone: " + x.getTelefone());
+                        	System.out.println("Email: " + x.getEmail());
                         }
                     } else {
                         System.out.println("Membro(s) não encontrado(s).");
@@ -62,10 +62,10 @@ public class AppMembros {
                     membro = MembroDAO.procurarMembro(objMembro);
                     if (membro != null) {
                         System.out.println("----------------------------");
-                        membro.setNome("Nome: " + membro.getNome());
-                        membro.setCargo("Cargo: " + membro.getCargo());
-                        membro.setTelefone("Telefone: " + membro.getTelefone());
-                        membro.setEmail("Email: " + membro.getEmail());
+                        System.out.println("Nome: " + membro.getNome());
+                        System.out.println("Cargo: " + membro.getCargo());
+                        System.out.println("Telefone: " + membro.getTelefone());
+                        System.out.println("Email: " + membro.getEmail());
 
                         char op = Console.readChar("Deseja excluir o membro? ");
                         if (op == 'S' || op == 's') {

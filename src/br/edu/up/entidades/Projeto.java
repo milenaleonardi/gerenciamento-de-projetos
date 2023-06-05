@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 public class Projeto {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
     @OneToMany
@@ -14,17 +14,14 @@ public class Projeto {
     @OneToOne
     private Equipe equipe;
 
-    private Planejamento planejamento;
-
     public Projeto() {
     }
 
-    public Projeto(int id, String nome, List<Tarefa> tarefas, Equipe equipe, Planejamento planejamento) {
+    public Projeto(int id, String nome, List<Tarefa> tarefas, Equipe equipe) {
         this.id = id;
         this.nome = nome;
         this.tarefas = tarefas;
         this.equipe = equipe;
-        this.planejamento = planejamento;
     }
 
     public int getId() {
@@ -58,12 +55,5 @@ public class Projeto {
     public void setEquipe(Equipe equipe) {
         this.equipe = equipe;
     }
-
-    public Planejamento getPlanejamento() {
-        return planejamento;
-    }
-
-    public void setPlanejamento(Planejamento planejamento) {
-        this.planejamento = planejamento;
-    }
 }
+

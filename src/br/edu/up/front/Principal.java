@@ -18,16 +18,16 @@ public class Principal {
                     new AppMembros();
                     break;
                 case 2:
-                    new AppEquipes();
+//                    new AppEquipes();
                     break;
                 case 3:
-                    new AppProjetos();
+//                    new AppProjetos();
                     break;
                 case 4:
-                    new AppTarefas();
+//                    new AppTarefas();
                     break;
             }
 
-        } while(opc != 5);
-
+        } while (opc != 5);
+    }
 }
