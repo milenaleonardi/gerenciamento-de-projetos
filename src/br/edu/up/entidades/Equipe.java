@@ -1,6 +1,8 @@
 package br.edu.up.entidades;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,19 +14,9 @@ public class Equipe {
     private String setor;
     @OneToOne
     private Projeto projeto;
-    @OneToMany
-    private List<Membro> membros;
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "equipe", fetch=FetchType.LAZY)
+    private List<Membro> membros = new ArrayList<Membro>();
 
-    public Equipe() {
-    }
-
-    public Equipe(int id, String nome, String setor, Projeto projeto, List<Membro> membros) {
-        this.id = id;
-        this.nome = nome;
-        this.setor = setor;
-        this.projeto = projeto;
-        this.membros = membros;
-    }
 
     public int getId() {
         return id;
@@ -62,7 +54,7 @@ public class Equipe {
         return membros;
     }
 
-    public void setMembros(List<Membro> membros) {
-        this.membros = membros;
+    public void setMembros(List<Membro> membro) {
+        this.membros = membro;
     }
 }

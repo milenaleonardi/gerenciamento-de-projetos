@@ -19,25 +19,19 @@ public class TarefaDAO {
             return false;
         }
     }
-    public static List<Tarefa> getTarefas(Tarefa tarefa){
-        EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from Tarefa where nome like :param");
-        consulta.setParameter("param", "%" + tarefa.getNome() + "%");
-        List<Tarefa> tarefas = consulta.getResultList();
-        return tarefas;
-    }
-    public static boolean alterarTarefa(Tarefa tarefa){
-        try{
-            EntityManager manager = EntityManagerFactory.getInstance();
-            manager.getTransaction().begin();
-            manager.persist(tarefa);
-            manager.getTransaction().commit();
-            return true;
-        }
-        catch(Exception e){
-            return false;
-        }
-    }
+    
+//    public static boolean alterarTarefa(Tarefa tarefa){
+//        try{
+//            EntityManager manager = EntityManagerFactory.getInstance();
+//            manager.getTransaction().begin();
+//            manager.persist(tarefa);
+//            manager.getTransaction().commit();
+//            return true;
+//        }
+//        catch(Exception e){
+//            return false;
+//        }
+//    }
     public static boolean excluirTarefa(Tarefa tarefa){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();

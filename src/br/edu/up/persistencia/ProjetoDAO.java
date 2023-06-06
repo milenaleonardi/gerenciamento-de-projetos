@@ -21,27 +21,18 @@ public class ProjetoDAO {
         }
     }
 
-    public static List<Projeto> getProjetos(Projeto projeto){
-        EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from Projeto where nome like :param");
-        consulta.setParameter("param", "%" + projeto.getNome() + "%");
-        List<Projeto> projetos = consulta.getResultList();
-        return projetos;
-    }
-
-
-    public static boolean alterarProjeto(Projeto projeto){
-        try{
-            EntityManager manager = EntityManagerFactory.getInstance();
-            manager.getTransaction().begin();
-            manager.persist(projeto);
-            manager.getTransaction().commit();
-            return true;
-        }
-        catch(Exception e){
-            return false;
-        }
-    }
+//    public static boolean alterarProjeto(Projeto projeto){
+//        try{
+//            EntityManager manager = EntityManagerFactory.getInstance();
+//            manager.getTransaction().begin();
+//            manager.persist(projeto);
+//            manager.getTransaction().commit();
+//            return true;
+//        }
+//        catch(Exception e){
+//            return false;
+//        }
+//    }
     public static boolean excluirProjeto(Projeto projeto){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
@@ -55,6 +46,7 @@ public class ProjetoDAO {
             return false;
         }
     }
+
 
     public static Projeto procurarProjeto(Projeto projeto){
         EntityManager manager = EntityManagerFactory.getInstance();

@@ -19,25 +19,19 @@ public class EquipeDAO {
             return false;
         }
     }
-    public static List<Equipe> getEquipe(Equipe equipe){
-        EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from Equipe where nome like :param");
-        consulta.setParameter("param", "%" + equipe.getNome() + "%");
-        List<Equipe> equipes = consulta.getResultList();
-        return equipes;
-    }
-    public static boolean alterarEquipe(Equipe equipe){
-        try{
-            EntityManager manager = EntityManagerFactory.getInstance();
-            manager.getTransaction().begin();
-            manager.persist(equipe);
-            manager.getTransaction().commit();
-            return true;
-        }
-        catch(Exception e){
-            return false;
-        }
-    }
+    
+//    public static boolean alterarEquipe(Equipe equipe){
+//        try{
+//            EntityManager manager = EntityManagerFactory.getInstance();
+//            manager.getTransaction().begin();
+//            manager.persist(equipe);
+//            manager.getTransaction().commit();
+//            return true;
+//        }
+//        catch(Exception e){
+//            return false;
+//        }
+//    }
     public static boolean excluirEquipe(Equipe equipe){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();

@@ -1,6 +1,8 @@
 package br.edu.up.entidades;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,20 +11,12 @@ public class Projeto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "projeto", fetch=FetchType.LAZY)
     private List<Tarefa> tarefas;
     @OneToOne
     private Equipe equipe;
 
-    public Projeto() {
-    }
-
-    public Projeto(int id, String nome, List<Tarefa> tarefas, Equipe equipe) {
-        this.id = id;
-        this.nome = nome;
-        this.tarefas = tarefas;
-        this.equipe = equipe;
-    }
+   
 
     public int getId() {
         return id;

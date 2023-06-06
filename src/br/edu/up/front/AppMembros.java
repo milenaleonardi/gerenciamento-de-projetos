@@ -6,79 +6,91 @@ import br.edu.up.persistencia.MembroDAO;
 import java.util.List;
 
 public class AppMembros {
-
+	
+	static Membro membro = null;
+	
     public AppMembros() {
-        Membro membro = null;
+        
         int opc;
         do {
-            System.out.println("\n");
+            System.out.println("\n\n");
             System.out.println("*** MEMBROS ***");
-            System.out.println("1 - Inserir novos membros");
-            System.out.println("2 - Consultar membros");
-            System.out.println("3 - Alterar membros");
-            System.out.println("4 - Excluir membros");
-            System.out.println("5 - Voltar");
+            System.out.println("1 - Novo membro");
+            System.out.println("2 - Consultar membro");
+            System.out.println("3 - Excluir membro");
+            System.out.println("4 - Voltar");
             opc = Console.readInt("Digite sua opção: ");
             switch (opc) {
                 case 1:
-                    membro = new Membro();
-                    System.out.println("\n\n*** INCLUSÃO DE MEMBRO ***");
-                    membro.setNome(Console.readString("Nome: "));
-                    membro.setCargo(Console.readString("Cargo: "));
-                    membro.setTelefone(Console.readString("Telefone: "));
-                    membro.setEmail(Console.readString("Email: "));
-                    MembroDAO.adicionarMembro(membro);
+                    incluirMembro();
                     break;
                 case 2:
-                    System.out.println("\n\n*** LISTAGEM DE MEMBROS ***");
-                    membro = new Membro();
-                    membro.setNome(Console.readString("Informe uma parte do nome que deseja listar: "));
-                    List<Membro> membros = MembroDAO.getMembros(membro);
-                    if (!membros.isEmpty()) {
-                        System.out.println("----------------------------");
-                        for (Membro x : membros) {
-                        	System.out.println("Nome: " + x.getNome());
-                        	System.out.println("Cargo: " + x.getCargo());
-                        	System.out.println("Telefone: " + x.getTelefone());
-                        	System.out.println("Email: " + x.getEmail());
-                        }
-                    } else {
-                        System.out.println("Membro(s) não encontrado(s).");
-                    }
+                    consultarMembro();
                     break;
                 case 3:
-                    membro = new Membro();
-                    System.out.println("*** ALTERAÇÃO DE CADASTRO ***");
-                    membro.setNome(Console.readString("Nome: "));
-                    membro.setCargo(Console.readString("Cargo: "));
-                    membro.setTelefone(Console.readString("Telefone: "));
-                    membro.setEmail(Console.readString("Email: "));
-                    MembroDAO.alterarMembro(membro);
+                    excluirMembro();
                     break;
-                case 4:
-                    System.out.println("\n\n*** EXCLUSÃO DE CADASTRO ***");
-                    Membro objMembro = new Membro();
-                    membro.setNome(Console.readString("Informe o nome: "));
-                    membro = MembroDAO.procurarMembro(objMembro);
-                    if (membro != null) {
-                        System.out.println("----------------------------");
-                        System.out.println("Nome: " + membro.getNome());
-                        System.out.println("Cargo: " + membro.getCargo());
-                        System.out.println("Telefone: " + membro.getTelefone());
-                        System.out.println("Email: " + membro.getEmail());
-
-                        char op = Console.readChar("Deseja excluir o membro? ");
-                        if (op == 'S' || op == 's') {
-                            if (MembroDAO.excluirMembro(membro)) {
-                                System.out.println("O membro foi excluído.");
-                            } else {
-                                System.out.println("O membro não foi excluído.");
-                            }
-                        }
-                    } else
-                        System.out.println("Membro não cadastrado.");
             }
-        } while (opc != 5);
+        } while (opc != 4);
     }
+    
+    private static void incluirMembro() {
+    	System.out.println("\n\n*** CADASTRAR NOVO MEMBRO ***");
+    	membro = new Membro();
+        membro.setNome(Console.readString("\n\nNome: "));
+        if(MembroDAO.procurarMembro(membro) == null) {
+	        membro.setCargo(Console.readString("Cargo: "));
+	        membro.setTelefone(Console.readString("Telefone: "));
+	        membro.setEmail(Console.readString("Email: "));
+	        MembroDAO.adicionarMembro(membro);
+	        System.out.println("\n\nCadastro bem sucedido!");
+		}
+		else {
+			System.out.println("\n\nMembro já cadastrado.");
+		}
+	}
+	        
 
+    private static void consultarMembro() {
+    	System.out.println("\n\n*** CONSULTA DE MEMBROS ***");
+        membro = new Membro();
+        membro.setNome(Console.readString("Informe o nome que deseja consultar: "));
+        membro = MembroDAO.procurarMembro(membro);
+        if (membro != null) {
+            System.out.println("\n\n----------------------------");
+            System.out.println("ID: " + membro.getId());
+            System.out.println("Nome: " + membro.getNome());
+           	System.out.println("Cargo: " + membro.getCargo());
+           	System.out.println("Telefone: " + membro.getTelefone());
+           	System.out.println("Email: " + membro.getEmail());
+        } else {
+            System.out.println("Membro não encontrado.");
+        }
+    }
+    
+    private static void excluirMembro() {
+    	System.out.println("\n\n*** EXCLUIR CADASTRO DE MEMBRO ***");
+        membro = new Membro();
+        membro.setNome(Console.readString("Informe o nome: "));
+        membro = MembroDAO.procurarMembro(membro);
+        if (membro != null) {
+            System.out.println("----------------------------");
+            System.out.println("ID: " + membro.getId());
+            System.out.println("Nome: " + membro.getNome());
+            System.out.println("Cargo: " + membro.getCargo());
+            System.out.println("Telefone: " + membro.getTelefone());
+            System.out.println("Email: " + membro.getEmail());
+            System.out.println("----------------------------");
+
+            char op = Console.readChar("\n\nConfirma a exclusão do membro? ");
+            if (op == 'S' || op == 's') {
+                if (MembroDAO.excluirMembro(membro)) {
+                    System.out.println("\n\nO membro foi excluído.");
+                } else {
+                    System.out.println("\n\nO membro não foi excluído.");
+                }
+            }
+        } else
+            System.out.println("\n\nMembro não encontrado.");
+    }
 }

@@ -15,16 +15,6 @@ public class Membro {
     private String telefone;
     private String cargo;
 
-    public Membro() {
-    }
-
-    public Membro(int id, String nome, String email, String telefone, String cargo) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-        this.cargo = cargo;
-    }
 
     public int getId() {
         return id;

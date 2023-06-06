@@ -7,7 +7,6 @@ import java.util.List;
 
 public class MembroDAO {
 
-    //Membro
     public static boolean adicionarMembro(Membro membro) {
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
@@ -20,25 +19,20 @@ public class MembroDAO {
             return false;
         }
     }
-    public static List<Membro> getMembros(Membro membro){
-        EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from Membro where nome like :param");
-        consulta.setParameter("param", "%" + membro.getNome() + "%");
-        List<Membro> membros = consulta.getResultList();
-        return membros;
-    }
-    public static boolean alterarMembro(Membro membro){
-        try{
-            EntityManager manager = EntityManagerFactory.getInstance();
-            manager.getTransaction().begin();
-            manager.persist(membro);
-            manager.getTransaction().commit();
-            return true;
-        }
-        catch(Exception e){
-            return false;
-        }
-    }
+   
+    
+//    public static boolean alterarMembro(Membro membro){
+//        try{
+//            EntityManager manager = EntityManagerFactory.getInstance();
+//            manager.getTransaction().begin();
+//            manager.persist(membro);
+//            manager.getTransaction().commit();
+//            return true;
+//        }
+//        catch(Exception e){
+//            return false;
+//        }
+//    }
     public static boolean excluirMembro(Membro membro){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
@@ -54,10 +48,10 @@ public class MembroDAO {
     }
     public static Membro procurarMembro(Membro membro){
         EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from Membro where nome = :paramNome");
-        consulta.setParameter("paramNome", membro.getNome());
+        Query consulta = manager.createQuery("from Membro where nome = :param");
+        consulta.setParameter("param", membro.getNome());
         List<Membro> membros = consulta.getResultList();
-        if(membros.isEmpty()){
+        if(!membros.isEmpty()){
             return membros.get(0);
         }
         return null;

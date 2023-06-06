@@ -7,104 +7,123 @@ import br.edu.up.persistencia.EquipeDAO;
 import br.edu.up.persistencia.MembroDAO;
 import br.edu.up.persistencia.ProjetoDAO;
 
-import java.util.List;
 
 public class AppEquipes {
+
+    static Equipe equipe = null;
+	
     public AppEquipes() {
-        Equipe equipe = null;
         int opc;
         do {
-            System.out.println("\n");
+            System.out.println("\n\n");
             System.out.println("*** EQUIPES ***");
-            System.out.println("1 - Inserir nova equipe");
+            System.out.println("1 - Nova equipe");
             System.out.println("2 - Consultar equipe");
-            System.out.println("3 - Alterar equipe");
-            System.out.println("4 - Excluir equipe");
-            System.out.println("5 - Voltar");
+            System.out.println("3 - Excluir equipe");
+            System.out.println("4 - Voltar");
             opc = Console.readInt("Digite sua opção: ");
             switch (opc) {
                 case 1:
-//                    equipe = new Equipe();
-//                    Projeto projeto = new Projeto();
-//                    Membro membro = new Membro();
-//
-//                    System.out.println("\n\n*** INCLUSÃO DE EQUIPE ***");
-//                    equipe.setNome(Console.readString("Nome: "));
-//                    equipe.setSetor(Console.readString("Setor: "));
-//
-//                    String projetoNome = (Console.readString("Projeto: "));
-//                    projeto = ProjetoDAO.getProjetos(projetoNome);
-//                    if (projeto != null) {
-//                        equipe.setProjeto(projeto);
-//                    } else {
-//                        System.out.println("Projeto não encontrado");
-//                        break;
-//                    }
-//
-//                    String membroNome = (Console.readString("Membro: "));
-//                    membro = MembroDAO.getMembros(membroNome);
-//                    if (membro != null) {
-//                        equipe.setMembros(MembroDAO.getMembros(membro));
-//                    } else {
-//                        System.out.println("Membro não encontrado.");
-//                        break;
-//                    }
-//                    EquipeDAO.adicionarEquipe(equipe);
-//                    break;
+                	incluirEquipe();
+                    break;
                 case 2:
-                    System.out.println("\n\n*** LISTAGEM DE EQUIPE ***");
-                    equipe = new Equipe();
-                    equipe.setNome(Console.readString("Informe o nome da equipe que deseja listar: "));
-                    List<Equipe> equipes = EquipeDAO.getEquipe(equipe);
-                    if (!equipes.isEmpty()) {
-                        System.out.println("----------------------------");
-                        for (Equipe x : equipes) {
-                            System.out.println("Nome: " + x.getNome());
-                            System.out.println("Cargo: " + x.getSetor());
-                            System.out.println("Projeto: " + x.getProjeto().getNome());
-                            System.out.println("Membros: " + x.getMembros().toString());
-                        }
-                    } else {
-                        System.out.println("Equipe(s) não encontrada(s).");
-                    }
+                    consultarEquipe();
                     break;
                 case 3:
-//                    equipe = new Equipe();
-//                    System.out.println("*** ALTERAÇÃO DE EQUIPE ***");
-//                    equipe.setNome(Console.readString("Nome: "));
-//                    equipe.setSetor(Console.readString("Setor: "));
-//                    String projetoNomeAlterar = Console.readString("Projeto: ");
-//                    equipe.setProjeto(ProjetoDAO.getProjetos(projetoNomeAlterar));
-//                    String membroNomeAlterar = Console.readString("Membros: ");
-//                    equipe.getMembros().add(MembroDAO.getMembros(membroNomeAlterar));
-//                    EquipeDAO.alterarEquipe(equipe);
-//                    break;
-                case 4:
-                    System.out.println("\n\n*** EXCLUSÃO DE EQUIPE ***");
-                    Equipe objEquipe = new Equipe();
-                    equipe.setNome(Console.readString("Informe o nome: "));
-                    equipe = EquipeDAO.procurarEquipe(objEquipe);
-                    if (equipe != null) {
-                        System.out.println("----------------------------");
-                        System.out.println("Nome: " + equipe.getNome());
-                        System.out.println("Setor: " + equipe.getSetor());
-                        System.out.println("Projeto: " + equipe.getProjeto().getNome());
-                        System.out.println("Membros: " + equipe.getMembros().toString());
-
-                        char op = Console.readChar("Deseja excluir a equipe? ");
-                        if (op == 'S' || op == 's') {
-                            if (EquipeDAO.excluirEquipe(equipe)) {
-                                System.out.println("A equipe foi excluída.");
-                            } else {
-                                System.out.println("A equipe não foi excluída.");
-                            }
-                        }
-                    } else
-                        System.out.println("Equipe não cadastrada.");
+                    excluirEquipe();
                     break;
             }
 
-        }while (opc != 5) ;
+        }while (opc != 4) ;
     }
+    
+    private static void incluirEquipe() {
+    	System.out.println("\n\n*** CADASTRAR NOVA EQUIPE ***");
+        Projeto projeto = null;
+        Membro membro = null;
+        String op;
+        
+        equipe = new Equipe();
+        equipe.setNome(Console.readString("\n\nNome da equipe: "));
+        if(EquipeDAO.procurarEquipe(equipe) == null) {
+        	projeto = new Projeto();
+        	projeto.setNome(Console.readString("Digite o nome do projeto: "));
+        	projeto = ProjetoDAO.procurarProjeto(projeto);
+        	if(projeto != null) {
+        		equipe.setProjeto(projeto);
+        		System.out.println("Projeto --> ");
+        		System.out.println("     ID: " + projeto.getId());
+        		System.out.println("     Nome: " + projeto.getNome());
+        		do {
+	        		membro = new Membro();
+	        		membro.setNome(Console.readString("Digite o nome do membro: "));
+	        		membro = MembroDAO.procurarMembro(membro);
+	        		if(membro != null) {
+						equipe.getMembros().add(membro);
+					}
+					else {
+						System.out.println("\n\nMembro não cadastrado...");
+					}
+					op = Console.readString("Mais ítens? ");
+				} while(op == "S" || op == "s" || op == "sim");
+        		if ( EquipeDAO.adicionarEquipe(equipe)) {
+        			System.out.println("\n\nEquipe adicionada...");
+				}
+				else {
+					System.out.println("\n\nNão foi possível adicionar a equipe....");
+				}
+        	}
+	        		
+       	}
+     }
 
+    private static void consultarEquipe() {
+    	System.out.println("\n\n*** CONSULTA DE EQUIPE ***");
+        equipe = new Equipe();
+        equipe.setNome(Console.readString("Informe o nome da equipe que deseja consultar: "));
+        equipe = EquipeDAO.procurarEquipe(equipe);
+        if (equipe != null) {
+            System.out.println("----------------------------");
+            System.out.println("ID: " + equipe.getId());
+            System.out.println("Nome: " + equipe.getNome());
+            System.out.println("Setor: " + equipe.getSetor());
+            System.out.println("Projeto: " + equipe.getProjeto().getNome());
+			System.out.println("----------------------------------------");
+			System.out.println("Membros ---> ");
+			for(Membro membro: equipe.getMembros()) {
+				System.out.println("     Nome: " + membro.getNome());
+			}
+			System.out.println("----------------------------------------");
+		}
+		else {
+			System.out.println("\n\nEquipe não cadastrada...");
+		}
+	}
+    
+    private static void excluirEquipe() {
+    	System.out.println("\n\n*** EXCLUSÃO DE EQUIPE ***");
+        equipe = new Equipe();
+        equipe.setNome(Console.readString("Informe o nome: "));
+        equipe = EquipeDAO.procurarEquipe(equipe);
+        if (equipe != null) {
+            System.out.println("----------------------------");
+            System.out.println("Nome: " + equipe.getNome());
+            System.out.println("Setor: " + equipe.getSetor());
+            System.out.println("Projeto: " + equipe.getProjeto().getNome());
+            System.out.println("Membros ---> ");
+			for(Membro membro: equipe.getMembros()) {
+				System.out.println("     Nome: " + membro.getNome());
+			}
+
+            String op = Console.readString("Deseja excluir a equipe? ");
+            if (op == "S" || op == "s" || op == "sim") {
+                if (EquipeDAO.excluirEquipe(equipe)) {
+                    System.out.println("A equipe foi excluída.");
+                } else {
+                    System.out.println("A equipe não foi excluída.");
+                }
+            }
+        } else
+            System.out.println("Equipe não cadastrada.");
+    }
 }

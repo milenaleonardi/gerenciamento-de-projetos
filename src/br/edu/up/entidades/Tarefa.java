@@ -13,15 +13,7 @@ public class Tarefa {
     private String nome;
     private String descricao;
 
-    public Tarefa() {
-    }
-
-    public Tarefa(int id, String nome, String descricao) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-    }
-
+    
     public int getId() {
         return id;
     }
