@@ -19,20 +19,7 @@ public class MembroDAO {
             return false;
         }
     }
-   
-    
-//    public static boolean alterarMembro(Membro membro){
-//        try{
-//            EntityManager manager = EntityManagerFactory.getInstance();
-//            manager.getTransaction().begin();
-//            manager.persist(membro);
-//            manager.getTransaction().commit();
-//            return true;
-//        }
-//        catch(Exception e){
-//            return false;
-//        }
-//    }
+
     public static boolean excluirMembro(Membro membro){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();

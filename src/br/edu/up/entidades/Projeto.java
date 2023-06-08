@@ -11,12 +11,8 @@ public class Projeto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
-    @OneToMany(cascade=CascadeType.ALL, mappedBy = "projeto", fetch=FetchType.LAZY)
-    private List<Tarefa> tarefas;
-    @OneToOne
-    private Equipe equipe;
-
-   
+    @OneToMany(cascade=CascadeType.ALL)
+    private List<Tarefa> tarefas = new ArrayList<Tarefa>();
 
     public int getId() {
         return id;
@@ -42,12 +38,5 @@ public class Projeto {
         this.tarefas = tarefas;
     }
 
-    public Equipe getEquipe() {
-        return equipe;
-    }
-
-    public void setEquipe(Equipe equipe) {
-        this.equipe = equipe;
-    }
 }
 

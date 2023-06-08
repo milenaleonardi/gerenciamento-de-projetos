@@ -19,19 +19,7 @@ public class EquipeDAO {
             return false;
         }
     }
-    
-//    public static boolean alterarEquipe(Equipe equipe){
-//        try{
-//            EntityManager manager = EntityManagerFactory.getInstance();
-//            manager.getTransaction().begin();
-//            manager.persist(equipe);
-//            manager.getTransaction().commit();
-//            return true;
-//        }
-//        catch(Exception e){
-//            return false;
-//        }
-//    }
+
     public static boolean excluirEquipe(Equipe equipe){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
@@ -50,7 +38,7 @@ public class EquipeDAO {
         Query consulta = manager.createQuery("from Membro where nome = :paramNome");
         consulta.setParameter("paramNome", equipe.getNome());
         List<Equipe> equipes = consulta.getResultList();
-        if(equipes.isEmpty()){
+        if(!equipes.isEmpty()){
             return equipes.get(0);
         }
         return null;

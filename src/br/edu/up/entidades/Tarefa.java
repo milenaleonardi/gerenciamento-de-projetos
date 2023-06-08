@@ -40,8 +40,8 @@ public class Tarefa {
 
     @Override
     public String toString() {
-        return "Tarefa" +
-                "Id:" + id +
+        return 
+                "\nID:" + id +
                 "\nNome: " + nome + '\'' +
                 "\nDescricao: " + descricao;
     }

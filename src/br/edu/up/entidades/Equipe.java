@@ -14,7 +14,7 @@ public class Equipe {
     private String setor;
     @OneToOne
     private Projeto projeto;
-    @OneToMany(cascade=CascadeType.ALL, mappedBy = "equipe", fetch=FetchType.LAZY)
+    @OneToMany(cascade=CascadeType.ALL)
     private List<Membro> membros = new ArrayList<Membro>();
 
 

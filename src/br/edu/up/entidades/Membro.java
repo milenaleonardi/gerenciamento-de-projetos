@@ -15,7 +15,6 @@ public class Membro {
     private String telefone;
     private String cargo;
 
-
     public int getId() {
         return id;
     }

@@ -1,6 +1,5 @@
 package br.edu.up.persistencia;
 
-import br.edu.up.entidades.Membro;
 import br.edu.up.entidades.Projeto;
 
 import javax.persistence.EntityManager;
@@ -8,31 +7,20 @@ import javax.persistence.Query;
 import java.util.List;
 
 public class ProjetoDAO {
-    public static boolean adicionarProjeto(Projeto projeto) {
-        try{
-            EntityManager manager = EntityManagerFactory.getInstance();
-            manager.getTransaction().begin();
-            manager.persist(projeto);
-            manager.getTransaction().commit();
-            return true;
-        }
-        catch(Exception e){
-            return false;
-        }
-    }
+    
+    public static boolean adicionarProjeto(Projeto projeto){
+		try{
+			EntityManager manager = EntityManagerFactory.getInstance();
+			manager.getTransaction().begin();
+			manager.persist(projeto);
+			manager.getTransaction().commit();	
+			return true;			
+		}
+		catch(Exception e){
+			return false;
+		}
+	}
 
-//    public static boolean alterarProjeto(Projeto projeto){
-//        try{
-//            EntityManager manager = EntityManagerFactory.getInstance();
-//            manager.getTransaction().begin();
-//            manager.persist(projeto);
-//            manager.getTransaction().commit();
-//            return true;
-//        }
-//        catch(Exception e){
-//            return false;
-//        }
-//    }
     public static boolean excluirProjeto(Projeto projeto){
         try{
             EntityManager manager = EntityManagerFactory.getInstance();
@@ -53,7 +41,7 @@ public class ProjetoDAO {
         Query consulta = manager.createQuery("from Projeto where nome = :paramNome");
         consulta.setParameter("paramNome", projeto.getNome());
         List<Projeto> projetos = consulta.getResultList();
-        if(projetos.isEmpty()){
+        if(!projetos.isEmpty()){
             return projetos.get(0);
         }
         return null;
