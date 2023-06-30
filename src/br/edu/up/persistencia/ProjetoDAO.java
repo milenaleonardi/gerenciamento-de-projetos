@@ -22,18 +22,19 @@ public class ProjetoDAO {
 	}
 
     public static boolean excluirProjeto(Projeto projeto){
-        try{
-            EntityManager manager = EntityManagerFactory.getInstance();
-            manager.getTransaction().begin();
-            manager.remove(projeto);
-            manager.getTransaction().commit();
-            return true;
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
+		try{
+			EntityManager manager = EntityManagerFactory.getInstance();
+			manager.getTransaction().begin();
+			manager.remove(projeto);
+			manager.getTransaction().commit();
+			return true;			
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 
     public static Projeto procurarProjeto(Projeto projeto){

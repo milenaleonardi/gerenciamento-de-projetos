@@ -21,18 +21,20 @@ public class MembroDAO {
     }
 
     public static boolean excluirMembro(Membro membro){
-        try{
-            EntityManager manager = EntityManagerFactory.getInstance();
-            manager.getTransaction().begin();
-            manager.remove(membro);
-            manager.getTransaction().commit();
-            return true;
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
+		try{
+			EntityManager manager = EntityManagerFactory.getInstance();
+			manager.getTransaction().begin();
+			manager.remove(membro);
+			manager.getTransaction().commit();
+			return true;			
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+    
     public static Membro procurarMembro(Membro membro){
         EntityManager manager = EntityManagerFactory.getInstance();
         Query consulta = manager.createQuery("from Membro where nome = :param");
