@@ -67,9 +67,9 @@ public class AppProjetos {
             System.out.println("----------------------------");
             System.out.println("ID: " + projeto.getId());
             System.out.println("Nome: " + projeto.getNome());
-			System.out.println("Lista de tarefas ---> ");
+			System.out.println("Tarefas ---->  ");
 			for(Tarefa tarefa: projeto.getTarefas()) {
-				System.out.println("     Tarefa: " + tarefa.toString());
+				System.out.println("\nTarefa " + tarefa.toString());
 			}
 			System.out.println("----------------------------------------");
 		}
@@ -93,8 +93,8 @@ public class AppProjetos {
 			}
         
             String op = Console.readString("Deseja excluir o projeto? ");
-            if (op == "S" || op == "s" || op == "sim") {
-                if (ProjetoDAO.excluirProjeto(projeto)) {
+            if (op.equals("S") || op.equals("s")|| op.equals("sim")){
+                if (ProjetoDAO.excluirProjeto(projeto) == true) {
                     System.out.println("O projeto foi excluido com sucesso.");
                 } else {
                     System.out.println("O projeto nao foi excluido.");

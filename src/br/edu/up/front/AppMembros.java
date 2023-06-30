@@ -82,7 +82,7 @@ public class AppMembros {
 
             String op = Console.readString("\n\nConfirma a exclusao do membro? ");
             if (op.equals("s") || op.equals("s") || op.equals("sim")) {
-                if (MembroDAO.excluirMembro(membro)) {
+                if (MembroDAO.excluirMembro(membro) == true) {
                     System.out.println("\n\nO membro foi excluido com sucesso.");
                 } else {
                     System.out.println("\n\nO membro nao foi excluido.");

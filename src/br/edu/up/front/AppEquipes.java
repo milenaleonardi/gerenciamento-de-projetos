@@ -46,12 +46,12 @@ public class AppEquipes {
         equipe = new Equipe();
         equipe.setNome(Console.readString("\n\nNome da equipe: "));
         if(EquipeDAO.procurarEquipe(equipe) == null) {
+        	equipe.setSetor(Console.readString("Digite o nome do setor: "));
         	projeto = new Projeto();
         	projeto.setNome(Console.readString("Digite o nome do projeto: "));
         	projeto = ProjetoDAO.procurarProjeto(projeto);
         	if(projeto != null) {
         		equipe.setProjeto(projeto);
-        		System.out.println("Projeto {[ID: " + projeto.getId() + ", Nome: " + projeto.getNome() + "]}");
         		do {
 	        		membro = new Membro();
 	        		membro.setNome(Console.readString("Digite o nome do membro: "));
@@ -64,7 +64,7 @@ public class AppEquipes {
 					}
 					op = Console.readString("Adicionar mais membros? ");
 				} while(op.equals("S") || op.equals("s")|| op.equals("sim"));
-        		if ( EquipeDAO.adicionarEquipe(equipe)) {
+        		if ( EquipeDAO.adicionarEquipe(equipe) == true) {
         			System.out.println("\n\nEquipe adicionada...");
 				}
 				else {
@@ -86,10 +86,9 @@ public class AppEquipes {
             System.out.println("Nome: " + equipe.getNome());
             System.out.println("Setor: " + equipe.getSetor());
             System.out.println("Projeto: " + equipe.getProjeto().getNome());
-			System.out.println("----------------------------------------");
 			System.out.println("Membros ---> ");
 			for(Membro membro: equipe.getMembros()) {
-				System.out.println("     Nome: " + membro.getNome());
+				System.out.println("     Nome: " + membro.toString());
 			}
 			System.out.println("----------------------------------------");
 		}
@@ -111,11 +110,13 @@ public class AppEquipes {
             System.out.println("Membros ---> ");
 			for(Membro membro: equipe.getMembros()) {
 				System.out.println("     Nome: " + membro.getNome());
+				
 			}
 
             String op = Console.readString("Deseja excluir a equipe? ");
             if (op.equals("S") || op.equals("s") || op.equals("sim")) {
-                if (EquipeDAO.excluirEquipe(equipe)) {
+            	equipe.setMembros(null);
+                if (EquipeDAO.excluirEquipe(equipe) == true) {
                     System.out.println("Equipe excluida com sucesso.");
                 } else {
                     System.out.println("Equipe nao excluida.");
